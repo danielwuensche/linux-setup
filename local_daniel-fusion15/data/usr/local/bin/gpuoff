@@ -1,0 +1,50 @@
+#!/usr/bin/bash
+
+check_device_unused() {
+    processes=$(fuser -v /dev/nvidia* 2>&1) # returns 0 if any file is in use, nonzero if no files are in use
+    case $? in
+        0)
+            echo "dGPU is still in use, processes are: "
+            echo "$processes"
+            false
+        ;;
+        *)
+            #echo "dGPU is not used"
+            true
+        ;;
+    esac
+}
+
+disable_gpu_acpi() {
+    echo '\_SB.PCI0.PEG0.PEGP._OFF' > /proc/acpi/call 2> /dev/null
+    result=$(tr -d '\0' < /proc/acpi/call)
+    case $result in
+        Error*)
+            echo "dGPU disable ACPI call failed"
+	    false
+        ;;
+        *)
+            #echo "dGPU disable ACPI call succeeded"
+	    true
+        ;;
+    esac
+}
+
+unload_nvidia_modules() {
+    for m in nvidia_uvm nvidia_drm nvidia_modeset nvidia; do
+        counter=0
+        while [[ $counter -lt 10 ]]; do
+            modprobe $m
+            if [[ $? -eq 0 ]]; then
+                #echo "module $m unloaded"
+                continue 2
+            fi
+            counter=$counter+1
+            sleep 1
+        done
+        echo "ERROR: unloading module $m failed"
+        break
+    done
+}
+
+check_device_unused && unload_nvidia_modules && disable_gpu_acpi

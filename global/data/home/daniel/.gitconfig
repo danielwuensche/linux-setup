@@ -1,0 +1,6 @@
+[user]
+	email = daniel@dvoid.xyz
+	name = Daniel Wuensche
+	signingkey = 9B01D46FB38DF58F
+[commit]
+	gpgsign = true

@@ -1,0 +1,43 @@
+#!/usr/bin/bash
+
+enable_gpu_acpi() {
+    echo '\_SB.PCI0.PEG0.PEGP._ON' > /proc/acpi/call 2> /dev/null
+    result=$(tr -d '\0' < /proc/acpi/call)
+    case $result in
+        Error*)
+            echo "dGPU enable ACPI call failed"
+	    false
+        ;;
+        *)
+            #echo "dGPU enable ACPI call succeeded"
+	    true
+        ;;
+    esac
+}
+
+load_nvidia_modules() {
+    for m in nvidia nvidia_modeset nvidia_drm nvidia_uvm; do
+        counter=0
+        while [[ $counter -lt 10 ]]; do
+            modprobe $m
+            if [[ $? -eq 0 ]]; then
+                #echo "module $m loaded"
+                continue 2
+            fi
+            counter=$counter+1
+            sleep 1
+        done
+        echo "ERROR: module $m not loaded"
+        break
+    done
+}
+
+# For some unknown reason, for the nvidia module to load you have to:
+# 1. do the ACPI call
+# 2. load the nvidia module - it will fail
+# 3. do the ACPI call again
+# 4. load the nvidia module including the other modules - now it works
+# Just doing the ACPI call (no matter how often) isn't enough to make the nvidia module load successfully.
+# Also, trying to load the nvidia module multiple times (or waiting) doesn't do anything - it always fails
+enable_gpu_acpi && modprobe nvidia 2>&1 >/dev/null
+enable_gpu_acpi && load_nvidia_modules

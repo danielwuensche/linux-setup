@@ -1,0 +1,4 @@
+alias kbon='ite8291r3-ctl monocolor -b 5 --rgb 80,0,128'
+alias kboff='ite8291r3-ctl off'
+alias gpuoff="sudo /usr/local/bin/gpuoff"
+alias gpuon="sudo /usr/local/bin/gpuon"
