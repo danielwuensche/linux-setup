@@ -18,3 +18,6 @@ fi
 
 source_file="${SETUP_DIR}/global/data/home/daniel/.gitconfig"
 cp $source_file /home/daniel/.gitconfig
+
+# applications
+sudo pamac install alacritty code thunderbird brave-browser

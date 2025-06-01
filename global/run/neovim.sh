@@ -5,5 +5,5 @@ if [[ -d "${XDG_CONFIG_HOME:-$HOME/.config}/nvim" ]]; then
     exit
 fi
 
-pamac install neovim unzip ripgrep xsel python-pynvim
+pamac install neovim unzip ripgrep python-pynvim
 git clone https://github.com/danielwuensche/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}/nvim" 
