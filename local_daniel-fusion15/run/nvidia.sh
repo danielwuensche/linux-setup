@@ -12,6 +12,7 @@ if [[ -f "$source_file" ]]; then
     sudo cp $source_file /etc/modprobe.d/nvidia-pm.conf
     sudo chown root:root /etc/modprobe.d/nvidia-pm.conf
     sudo chmod 0644 /etc/modprobe.d/nvidia-pm.conf
+fi
 
 # wayland session for dGPU-only mode
 source_file="${SETUP_DIR}/local_$(hostname)/data/usr/share/wayland-sessions/plasmawayland-dgpu.desktop"

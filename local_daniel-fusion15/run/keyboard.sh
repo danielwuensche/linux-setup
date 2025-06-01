@@ -9,5 +9,6 @@ if [[ -f "$source_file" ]]; then
     sudo cp $source_file /etc/udev/rules.d/99-ite8291.rules
     sudo chown root:root /etc/udev/rules.d/99-ite8291.rules
     sudo chmod 0644 /etc/udev/rules.d/99-ite8291.rules
+fi
 sudo udevadm control --reload
 sudo udevadm trigger

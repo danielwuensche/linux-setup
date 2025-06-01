@@ -1,3 +1,6 @@
 alias vim='nvim'
+alias s='sudo'
+alias si='sudo -i'
+alias se='sudoedit'
 
 [[ -f "$HOME/.aliases-local_$(hostname)" ]] && source "$HOME/.aliases-local_$(hostname)"

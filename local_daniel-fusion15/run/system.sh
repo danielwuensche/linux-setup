@@ -9,6 +9,7 @@ if [[ -f "$source_file" ]]; then
     sudo cp $source_file /etc/intel-undervolt.conf
     sudo chown root:root /etc/intel-undervolt.conf
     sudo chmod 0644 /etc/intel-undervolt.conf
+fi
 sudo mkdir -p /etc/systemd/system/intel-undervolt.service.d
 source_file="${SETUP_DIR}/local_$(hostname)/data/etc/systemd/system/intel-undervolt.service.d/override.conf"
 sudo cp $source_file /etc/systemd/system/intel-undervolt.service.d/override.conf
