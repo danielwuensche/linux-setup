@@ -21,3 +21,11 @@ cp $source_file /home/daniel/.gitconfig
 
 # applications
 sudo pamac install alacritty code thunderbird brave-browser
+
+# discord update/install script
+source_file="${SETUP_DIR}/global/data/home/daniel/bin/update-discord"
+if [[ ! -d "/home/daniel/bin" ]]; then
+    mkdir /home/daniel/bin
+fi
+cp $source_file /home/daniel/bin/update-discord
+chmod +x /home/daniel/bin/update-discord
