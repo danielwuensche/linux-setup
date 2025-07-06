@@ -1,0 +1,7 @@
+[Desktop Entry]
+Exec=/usr/local/bin/plasmawayland-igpu
+TryExec=/usr/bin/startplasma-wayland
+DesktopNames=KDE
+Name=Plasma (Wayland) - dGPU
+Comment=Plasma by KDE
+X-KDE-PluginInfo-Version=6.3.5
