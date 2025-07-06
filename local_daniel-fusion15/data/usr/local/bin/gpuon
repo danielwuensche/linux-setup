@@ -1,5 +1,9 @@
 #!/usr/bin/bash
 
+load_audio() {
+    echo "0000:01:00.1" > /sys/bus/pci/drivers/snd_hda_intel/bind
+}
+
 enable_gpu_acpi() {
     echo '\_SB.PCI0.PEG0.PEGP._ON' > /proc/acpi/call 2> /dev/null
     result=$(tr -d '\0' < /proc/acpi/call)
@@ -40,4 +44,4 @@ load_nvidia_modules() {
 # Just doing the ACPI call (no matter how often) isn't enough to make the nvidia module load successfully.
 # Also, trying to load the nvidia module multiple times (or waiting) doesn't do anything - it always fails
 enable_gpu_acpi && modprobe nvidia 2>&1 >/dev/null
-enable_gpu_acpi && load_nvidia_modules
+enable_gpu_acpi && load_nvidia_modules && load_audio

@@ -15,6 +15,10 @@ check_device_unused() {
     esac
 }
 
+unload_audio() {
+    echo "0000:01:00.1" > /sys/bus/pci/drivers/snd_hda_intel/unbind
+}
+
 disable_gpu_acpi() {
     echo '\_SB.PCI0.PEG0.PEGP._OFF' > /proc/acpi/call 2> /dev/null
     result=$(tr -d '\0' < /proc/acpi/call)
@@ -47,4 +51,4 @@ unload_nvidia_modules() {
     done
 }
 
-check_device_unused && unload_nvidia_modules && disable_gpu_acpi
+check_device_unused && unload_audio && unload_nvidia_modules && disable_gpu_acpi
