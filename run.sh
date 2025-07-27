@@ -23,3 +23,6 @@ for s in "${scripts[@]}"; do
   echo "Running $(pwd)/${s}..."
   bash "$s" || exit 1
 done
+
+echo "Press Enter to exit..."
+read -r
