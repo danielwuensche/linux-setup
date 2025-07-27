@@ -1,8 +1,0 @@
-#!/usr/bin/bash
-
-wget -O /tmp/discord.tar.gz "https://discord.com/api/download?platform=linux&format=tar.gz"
-
-cd ~
-tar -xf /tmp/discord.tar.gz
-
-rm /tmp/discord.tar.gz
