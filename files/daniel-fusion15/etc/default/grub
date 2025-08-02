@@ -1,7 +1,8 @@
 #GRUB_DEFAULT=saved
 #GRUB_DEFAULT=2
 GRUB_DEFAULT=0
-GRUB_TIMEOUT=5
+#GRUB_TIMEOUT=5
+GRUB_TIMEOUT=1
 GRUB_TIMEOUT_STYLE=menu
 GRUB_DISTRIBUTOR="Manjaro"
 #GRUB_CMDLINE_LINUX_DEFAULT="quiet apparmor=1 security=apparmor resume=UUID=e3da31ae-dada-4c77-951b-922524dc8c52 udev.log_priority=3 i8042.noaux pci=realloc,assign-busses,hpbussize=0x33"
