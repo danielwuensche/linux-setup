@@ -1,13 +1,5 @@
 #!/usr/bin/bash
 
-if [ -n "$SUDO_HOME" ]; then
-  user_home="$SUDO_HOME"
-else
-  user_home="$HOME"
-fi
-
-SETUP_DIR=${SETUP_DIR:-$user_home/linux-setup}
-
 source "$SETUP_DIR/lib/copy.sh"
 
 ###
@@ -17,8 +9,8 @@ target="/etc/default/grub"
 source="${SETUP_DIR}/files/$(hostname)${target}"
 copy "$source" "$target" --mode="644" --owner="root" --group="root"
 if [ $? -eq 9 ]; then
-  echo "Generating grub-config..."
-  grub-mkconfig -o /boot/grub/grub.cfg
+    echo "Generating grub-config..."
+    grub-mkconfig -o /boot/grub/grub.cfg
 fi
 
 ### intel-undervolt
@@ -74,9 +66,9 @@ target=/etc/udev/rules.d/99-ite8291.rules
 source="${SETUP_DIR}/files/$(hostname)${target}"
 copy "$source" "$target" --mode="644" --owner="root" --group="root"
 if [ $? -eq 1 ]; then
-  echo "Reloading and triggering udev rules..."
-  udevadm control --reload
-  udevadm trigger
+    echo "Reloading and triggering udev rules..."
+    udevadm control --reload
+    udevadm trigger
 fi
 
 ###
