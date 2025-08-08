@@ -5,17 +5,17 @@
 
 cmd_packages_list_installed() {
     echo "error: function 'cmd_packages_list_installed()' not implemented!" >&2
-    exit 1
+    return 1
 }
 
 cmd_packages_check_not_installed() {
     echo "error: function 'cmd_packages_check_not_installed()' not implemented!" >&2
-    exit 1
+    return 1
 }
 
 cmd_packages_install() {
     echo "error: function 'cmd_packages_install()' not implemented!" >&2
-    exit 1
+    return 1
 }
 
 ###

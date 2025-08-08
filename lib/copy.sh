@@ -20,7 +20,7 @@ copy() {
     else
         echo "Error: source or destination missing!" >&2
         echo "$__usage"
-        exit 1
+        return 1
     fi
 
     while [ $# -gt 0 ]; do
@@ -36,7 +36,7 @@ copy() {
             ;;
         *)
             printf "Error: Invalid argument: %s\n" "$1" >&2
-            exit 1
+            return 1
             ;;
         esac
         shift
@@ -45,7 +45,7 @@ copy() {
     if ! [ -f "$source" ]; then
         echo "Error: source file doesn't exist!" >&2
         echo "File path: $source"
-        exit 1
+        return 1
     fi
 
     need_copy=0
@@ -61,26 +61,26 @@ copy() {
 
     if [ "$need_copy" != 0 ]; then
         echo "Copying $source to $target."
-        cp "$source" "$target" || exit 1
+        cp "$source" "$target" || return 1
     fi
-    [ $? -eq 2 ] && exit 1
+    [ $? -eq 2 ] && return 1
 
     if [ -n "$mode" ] && [ "$(stat -c "%a" "$target")" != "$mode" ]; then
         echo "Setting mode $mode on $target."
-        chmod "$mode" "$target" || exit 1
+        chmod "$mode" "$target" || return 1
     fi
 
     if [ -n "$owner" ] && [ "$(stat -c "%U" "$target")" != "$owner" ]; then
         echo "Setting owner $owner on $target."
-        chown "$owner" "$target" || exit 1
+        chown "$owner" "$target" || return 1
     fi
 
     if [ -n "$group" ] && [ "$(stat -c "%G" "$target")" != "$group" ]; then
         echo "Setting group $group on $target."
-        chgrp "$group" "$target" || exit 1
+        chgrp "$group" "$target" || return 1
     fi
 
     if [ "$need_copy" -eq 1 ]; then
-        exit 9
+        return 9
     fi
 }
