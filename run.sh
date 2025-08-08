@@ -2,8 +2,8 @@
 
 cd "$(dirname "$0")" || exit 1
 
-if [ -n "$SUDO_NAME" ]; then
-    user_name="$SUDO_NAME"
+if [ -n "$SUDO_USER" ]; then
+    user_name="$SUDO_USER"
 else
     user_name="$NAME"
 fi
