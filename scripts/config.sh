@@ -33,3 +33,12 @@ fi
 target=/home/daniel/.gitconfig
 source="${SETUP_DIR}/files/.gitconfig"
 copy "$source" "$target" --mode="644" --owner="$user_name" --group="$user_name"
+
+# discord
+target=/home/daniel/.local/bin/discord.sh
+source="${SETUP_DIR}/files/.local/bin/discord.sh"
+copy "$source" "$target" --mode="744" --owner="$user_name" --group="$user_name"
+
+target=/home/daniel/.local/share/applications/discord.desktop
+source="${SETUP_DIR}/files/.local/share/applications/discord.desktop"
+copy "$source" "$target" --mode="755" --owner="$user_name" --group="$user_name"
