@@ -62,5 +62,5 @@ for s in "${scripts[@]}"; do
     bash "$s"
 done
 
-echo "Press Enter to exit..."
+echo "Press any key to exit..."
 read -r
