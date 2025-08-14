@@ -29,6 +29,16 @@ if [[ -f "${source}-local_$(hostname)" ]]; then
 fi
 
 # git
-source=${current_dir}/files/.gitconfig
+source="${current_dir}/files/.gitconfig"
 target="$user_home/.gitconfig"
+copy "$source" "$target" --mode="644" --owner="$user_name" --group="$user_name"
+
+# zshrc
+source="${current_dir}/files/.zshrc"
+target="$user_home/.zshrc"
+copy "$source" "$target" --mode="644" --owner="$user_name" --group="$user_name"
+
+# bashrc
+source="${current_dir}/files/.bashrc"
+target="$user_home/.bashrc"
 copy "$source" "$target" --mode="644" --owner="$user_name" --group="$user_name"
