@@ -5,7 +5,7 @@ cd "$(dirname "$0")" || exit 1
 if [ -n "$SUDO_USER" ]; then
     user_name="$SUDO_USER"
 else
-    user_name="$NAME"
+    user_name="$USER"
 fi
 
 if [ -n "$SUDO_HOME" ]; then
@@ -17,17 +17,6 @@ fi
 SETUP_DIR=${SETUP_DIR:-$user_home/linux-setup}
 
 ###
-
-scripts=(
-    scripts/system.sh
-    scripts/packages.sh
-    scripts/config.sh
-)
-
-host_scripts=(
-    "scripts/$(hostname)/config.sh"
-    "scripts/$(hostname)/post_install.sh"
-)
 
 ###
 # checkdistro to later import correct stuff
@@ -52,14 +41,11 @@ export SETUP_DIR
 export distro
 
 ###
-# run scripts
-for s in "${host_scripts[@]}"; do
-    [ -f "$s" ] && scripts+=("$s")
-done
-
-for s in "${scripts[@]}"; do
-    echo "Running $(pwd)/${s}..."
-    bash "$s"
+# run roles
+source "$SETUP_DIR/vars/$(hostname)/roles.sh"
+for role in "${roles[@]}"; do
+    echo "Running role '$role'"
+    bash "$SETUP_DIR/roles/$role/run.sh"
 done
 
 echo "Press any key to exit..."
