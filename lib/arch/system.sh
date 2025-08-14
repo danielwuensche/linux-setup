@@ -9,9 +9,8 @@ configure_pacman_mirrors() {
         echo "Current mirrors: ${mirrors_current[*]}"
         mirrors_formatted=$(
             IFS=,
-            echo "$#"
+            echo "$*"
         )
-        echo "Current Mirrors: ${mirrors_current[*]}"
         echo "Setting pacman-mirrors countries to ${mirrors_formatted[*]}"
         pacman-mirrors -c "${mirrors_formatted}"
     fi
