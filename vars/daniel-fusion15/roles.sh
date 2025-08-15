@@ -7,7 +7,6 @@ roles=(
     "grub"
     "sddm"
     "nvidia"
-    "sudoers"
     "thermald"
     "intel-undervolt"
     "ite8291"

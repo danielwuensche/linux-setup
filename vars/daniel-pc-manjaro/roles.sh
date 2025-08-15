@@ -5,7 +5,6 @@ roles=(
     "packages"
     "grub"
     "sddm"
-    "sudoers"
     "thermald"
     "dotfiles"
     "neovim"
