@@ -23,3 +23,6 @@ if ! [ -d "$neovim_config_dir" ] && [ "$user_name" != "root" ]; then
     mkdir -p "$neovim_config_dir"
     git clone "$neovim_config_git" "$neovim_config_dir"
 fi
+
+cd "$neovim_config_dir" || exit
+[ -n "$(git fetch)" ] && git pull
