@@ -7,7 +7,7 @@ enable_start_service() {
 
     if ! systemctl -q is-enabled "$service"; then
         echo "Enabling $service..."
-        if ! systemctl enable "$service" >/dev/null; then
+        if ! $sudo systemctl enable "$service" >/dev/null; then
             echo "Failed to enable $service" >&2
             return 1
         fi
@@ -15,7 +15,7 @@ enable_start_service() {
 
     if ! systemctl -q is-active "$service"; then
         echo "Starting $service..."
-        if ! systemctl start "$service" >/dev/null; then
+        if ! $sudo systemctl start "$service" >/dev/null; then
             echo "Failed to start $service" >&2
             return 1
         fi

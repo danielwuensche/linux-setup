@@ -20,6 +20,6 @@ target=/etc/udev/rules.d/99-ite8291.rules
 copy "$source" "$target" --mode="644" --owner="root" --group="root"
 if [ $? -eq 1 ]; then
     echo "Reloading and triggering udev rules..."
-    udevadm control --reload
-    udevadm trigger
+    $sudo udevadm control --reload
+    $sudo udevadm trigger
 fi

@@ -51,7 +51,7 @@ copy() {
     need_copy=0
 
     if [ -f "$target" ]; then
-        cmp -s "$source" "$target"
+        $sudo cmp -s "$source" "$target"
         [ $? -eq 1 ] && need_copy=1
     else
         need_copy=1
@@ -61,23 +61,23 @@ copy() {
 
     if [ "$need_copy" != 0 ]; then
         echo "Copying $source to $target."
-        cp "$source" "$target" || return 1
+        $sudo cp "$source" "$target" || return 1
     fi
     [ $? -eq 2 ] && return 1
 
-    if [ -n "$mode" ] && [ "$(stat -c "%a" "$target")" != "$mode" ]; then
+    if [ -n "$mode" ] && [ "$($sudo stat -c "%a" "$target")" != "$mode" ]; then
         echo "Setting mode $mode on $target."
-        chmod "$mode" "$target" || return 1
+        $sudo chmod "$mode" "$target" || return 1
     fi
 
-    if [ -n "$owner" ] && [ "$(stat -c "%U" "$target")" != "$owner" ]; then
+    if [ -n "$owner" ] && [ "$($sudo stat -c "%U" "$target")" != "$owner" ]; then
         echo "Setting owner $owner on $target."
-        chown "$owner" "$target" || return 1
+        $sudo chown "$owner" "$target" || return 1
     fi
 
-    if [ -n "$group" ] && [ "$(stat -c "%G" "$target")" != "$group" ]; then
+    if [ -n "$group" ] && [ "$($sudo stat -c "%G" "$target")" != "$group" ]; then
         echo "Setting group $group on $target."
-        chgrp "$group" "$target" || return 1
+        $sudo chgrp "$group" "$target" || return 1
     fi
 
     if [ "$need_copy" -eq 1 ]; then

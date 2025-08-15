@@ -4,8 +4,10 @@ cd "$(dirname "$0")" || exit 1
 
 if [ -n "$SUDO_USER" ]; then
     user_name="$SUDO_USER"
+    sudo=""
 else
     user_name="$USER"
+    sudo="sudo"
 fi
 
 if [ -n "$SUDO_HOME" ]; then
@@ -38,6 +40,7 @@ esac
 ###
 # export variables
 export user_name
+export sudo
 export user_home
 export SETUP_DIR
 export distro

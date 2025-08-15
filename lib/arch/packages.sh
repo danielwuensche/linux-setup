@@ -15,5 +15,5 @@ cmd_packages_check_not_installed() {
 }
 
 cmd_packages_install() {
-    pacman -S $#
+    $sudo pacman -S $#
 }

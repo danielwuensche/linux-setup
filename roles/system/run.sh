@@ -11,7 +11,7 @@ pacman_mirrors_countries=(
 ### NTP
 if ! (timedatectl show | grep -q -w 'NTP=yes'); then
     echo "Enabling NTP sync."
-    timedatectl set-ntp 1 || exit 1
+    $sudo timedatectl set-ntp 1 || exit 1
 fi
 
 if [ "$distro" == "arch" ]; then

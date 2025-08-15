@@ -12,6 +12,6 @@ configure_pacman_mirrors() {
             echo "$*"
         )
         echo "Setting pacman-mirrors countries to ${mirrors_formatted[*]}"
-        pacman-mirrors -c "${mirrors_formatted}"
+        $sudo pacman-mirrors -c "${mirrors_formatted}"
     fi
 }

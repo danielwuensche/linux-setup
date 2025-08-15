@@ -16,5 +16,5 @@ fi
 copy "$source" "$target" --mode="644" --owner="root" --group="root"
 if [ $? -eq 9 ]; then
     echo "Generating grub-config..."
-    grub-mkconfig -o /boot/grub/grub.cfg
+    $sudo grub-mkconfig -o /boot/grub/grub.cfg
 fi
