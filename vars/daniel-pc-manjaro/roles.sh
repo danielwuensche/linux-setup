@@ -2,6 +2,7 @@
 
 roles=(
     "system"
+    "packages"
     "grub"
     "sddm"
     "sudoers"

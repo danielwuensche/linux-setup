@@ -2,6 +2,7 @@
 
 roles=(
     "system"
+    "packages"
     "tuxedo-control-center"
     "grub"
     "sddm"

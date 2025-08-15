@@ -17,3 +17,7 @@ cmd_packages_check_not_installed() {
 cmd_packages_install() {
     $sudo pacman -S $#
 }
+
+cmd_packages_update() {
+    $sudo pacman -Syu
+}
