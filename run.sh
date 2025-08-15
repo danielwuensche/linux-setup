@@ -18,6 +18,8 @@ SETUP_DIR=${SETUP_DIR:-$user_home/linux-setup}
 
 ###
 
+[ -n "$(git fetch)" ] || git pull
+
 ###
 # checkdistro to later import correct stuff
 
