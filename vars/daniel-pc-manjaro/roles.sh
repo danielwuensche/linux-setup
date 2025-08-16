@@ -7,6 +7,7 @@ roles=(
     "sddm"
     "thermald"
     "dotfiles"
+    "envvars"
     "neovim"
     "brave-browser"
     "thunderbird"

@@ -11,6 +11,7 @@ roles=(
     "intel-undervolt"
     "ite8291"
     "dotfiles"
+    "envvars"
     "neovim"
     "brave-browser"
     "thunderbird"
