@@ -1,5 +1,8 @@
 #!/usr/bin/bash
 
+source "$SETUP_DIR/lib/copy.sh"
+current_dir="$(dirname "$0")"
+
 pacman_mirrors_countries=(
     Germany
     Netherlands
@@ -19,4 +22,9 @@ if [ "$distro" == "arch" ]; then
 
     ### pacman mirrors
     configure_pacman_mirrors "${pacman_mirrors_countries[@]}"
+
+    ### custom pacman.conf
+    source="${current_dir}/files/pacman.conf__$(hostname)"
+    target="/etc/pacman.conf"
+    [ -f "$source" ] && copy "$source" "$target" --mode="644" --owner="root" --group="root"
 fi
