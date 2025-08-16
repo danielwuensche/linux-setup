@@ -138,3 +138,4 @@ ex ()
 
 # own aliases
 [[ -f ~/.aliases ]] && . ~/.aliases
+[[ -f ~/.profile ]] && . ~/.profile
