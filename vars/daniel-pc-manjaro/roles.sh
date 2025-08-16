@@ -12,4 +12,5 @@ roles=(
     "brave-browser"
     "thunderbird"
     "discord"
+    "sunshine"
 )
