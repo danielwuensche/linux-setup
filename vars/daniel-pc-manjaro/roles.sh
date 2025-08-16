@@ -3,6 +3,7 @@
 roles=(
     "system"
     "packages"
+    "mkinitcpio"
     "grub"
     "sddm"
     "thermald"
