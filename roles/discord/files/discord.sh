@@ -10,6 +10,19 @@ path_tmp_file="$path_tmp/discord.tar.gz"
 url_download="https://discord.com/api/download?platform=linux&format=tar.gz"
 url_api="https://discord.com/api/updates/stable?platform=linux"
 
+check_network() {
+    _online="0"
+    while [ "$_online" = "0" ]; do
+        for interface in $(ls /sys/class/net | grep -v 'lo'); do
+            if [ "$(cat /sys/class/net/$interface/carrier 2>/dev/null)" = "1" ]; then
+                _online="1"
+                break 2
+            fi
+        done
+        sleep 1
+    done
+}
+
 get_version_local() {
     if ! [ -f "$path_install_buildfile" ]; then
         echo "Version file doesn't exist, assuming Discord isn't installed..." >&2
@@ -39,6 +52,8 @@ discord_install() {
 discord_run() {
     [ -f "$path_install_exec" ] && "$path_install_exec"
 }
+
+check_network 
 
 needs_install=0
 

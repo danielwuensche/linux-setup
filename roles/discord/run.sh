@@ -16,3 +16,7 @@ copy "$source" "$target" --mode="744" --owner="$user_name" --group="$user_name"
 source="${current_dir}/files/discord.desktop"
 target="$user_home/.local/share/applications/discord.desktop"
 copy "$source" "$target" --mode="755" --owner="$user_name" --group="$user_name"
+
+source="$target"
+target="$user_home/.config/autostart/discord.desktop"
+ln -s "$source" "$target"
