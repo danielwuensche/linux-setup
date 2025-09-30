@@ -1,0 +1,15 @@
+---
+
+- name: "Copy grub config"
+  ansible.builtin.copy:
+    src: "files/grub__{{ inventory_hostname }}"
+    dest: "/etc/default/grub"
+  become: true
+  when: "(role_path ~ '/files/grub__' ~ inventory_hostname) is file"
+  register: reg_grub
+
+- name: "Generate grub config"
+  ansible.builtin.command:
+    cmd: "grub-mkconfig -o /boot/grub/grub.cfg"
+  become: true
+  when: "reg_grub.changed"

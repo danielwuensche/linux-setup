@@ -1,0 +1,32 @@
+---
+
+- name: "Get timedatectl configuration"
+  ansible.builtin.command:
+    cmd: "timedatectl show"
+  register: "reg_timedatectl"
+  changed_when: false
+
+- name: "Enable NTP"
+  ansible.builtin.command:
+    cmd: "timedatectl set-ntp 1"
+  become: true
+  when: "'NTP=no' in reg_timedatectl.stdout_lines"
+
+- name: "Configure pacman"
+  ansible.builtin.copy:
+    src: "files/pacman.conf__{{ inventory_hostname }}"
+    dest: "/etc/pacman.conf"
+  become: true
+  when: "(role_path ~ '/files/pacman.conf__' ~ inventory_hostname) is file"
+
+- name: "Get pacman mirror countries"
+  ansible.builtin.command:
+    cmd: "pacman-mirrors -lc"
+  register: reg_pacman_mirrors
+  changed_when: false
+
+- name: "Set pacman mirror countries"
+  ansible.builtin.command:
+    cmd: "pacman-mirrors -c '{{  }}'"
+  become: true
+  when: "(reg_pacman_mirrors | list) == system_pacman_mirror_countries"

@@ -1,0 +1,6 @@
+---
+
+system_pacman_mirror_countries:
+  - "Austria"
+  - "Germany"
+  - "Netherlands"

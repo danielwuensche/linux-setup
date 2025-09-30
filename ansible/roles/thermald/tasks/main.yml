@@ -1,0 +1,14 @@
+---
+
+- name: "Install packages"
+  ansible.builtin.package:
+    name: "thermald"
+    state: "present"
+  become: true
+
+- name: "Enable service"
+  ansible.builtin.service:
+    name: "thermald"
+    state: started
+    enabled: true
+  become: true

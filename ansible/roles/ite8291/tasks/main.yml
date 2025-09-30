@@ -1,0 +1,30 @@
+---
+
+- name: "Include distro-specific variables"
+  ansible.builtin.include_vars: "defaults/{{ ansible_distribution }}.yml"
+
+- name: "Install packages"
+  ansible.builtin.package:
+    name: "{{ _packages }}"
+    state: "present"
+  become: true
+
+- name: "Create udev rules"
+  ansible.bultin.copy:
+    src: "files/99-ite8291.rules"
+    dest: "/etc/udev/rules.d/99-ite8291.rules"
+  become: true
+  register: reg_ite
+
+- name: "Reload udev"
+  ansible.builtin.command:
+    cmd: "udevadm control --reload"
+  become: true
+  when: "reg_ite.changed"
+
+- name: "Trigger udev"
+  ansible.builtin.command:
+    cmd: "udevadm trigger"
+  become: true
+  when: "reg_ite.changed"
+

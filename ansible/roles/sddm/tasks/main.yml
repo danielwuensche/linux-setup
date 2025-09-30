@@ -1,0 +1,10 @@
+---
+
+- name: "Copy SDDM Wayland config"
+  ansible.builtin.copy:
+    src: "files/10-wayland.conf"
+    dest: "/etc/sddm.conf.d/10-wayland.conf"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  become: true

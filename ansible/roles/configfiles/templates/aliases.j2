@@ -1,0 +1,5 @@
+{{ ansible_managed }}
+
+{% for item in (configfiles_aliases | dict2items) %}
+alias {{ item.key }}='{{ item.value }}'
+{% endfor %}

@@ -1,0 +1,22 @@
+---
+
+- name: "Include distro-specific variables"
+  ansible.builtin.include_vars: "defaults/{{ ansible_distribution }}.yml"
+  when: "('defaults/' ~ ansible_distribution ~ '.yml') is file"
+
+- name: "Install packages"
+  ansible.builtin.package:
+    name: "{{ _packages }}"
+    state: "present"
+  become: true
+
+- name: "Ensure neovim config directory exists"
+  ansible.builtin.file:
+    path: "{{ neovim_config_dir }}"
+    state: "directory"
+
+- name: "Clone and update neovim config repository"
+  ansible.builtin.git:
+    repo: "{{ neovim_config_git }}"
+    dest: "{{ neovim_config_dir }}"
+

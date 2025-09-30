@@ -1,0 +1,27 @@
+---
+
+- name: "Linux Setup"
+  hosts: all
+  
+  tasks:
+    - ansible.builtin.include_role:
+        role: "{{ item }}"
+      when: "'role_' ~ item in group_names"
+      loop:
+        - "system"
+        - "packages"
+        - "tuxedo_control_center"
+        - "mkinitcpio"
+        - "grub"
+        - "sddm"
+        - "nvidia"
+        - "thermald"
+        - "intel_undervolt"
+        - "ite8291"
+        - "configfiles"
+        - "neovim"
+        - "brave"
+        - "thunderbird"
+        - "discord"
+        - "sunshine"
+

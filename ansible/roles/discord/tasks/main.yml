@@ -1,0 +1,13 @@
+---
+
+- name: "Copy discord script"
+  ansible.builtin.copy:
+    src: "files/discord.sh"
+    dest: "{{ ansible_user_dir }}/.local/bin/discord.sh"
+    mode: "0744"
+
+- name: Copy discord desktop file
+  ansible.builtin.copy:
+    src: "files/discord.desktop"
+    dest: "{{ ansible_user_dir }}/.local/share/applications/discord.desktop"
+    mode: "0755"

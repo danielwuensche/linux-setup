@@ -1,0 +1,32 @@
+---
+
+- name: "Include distro-specific variables"
+  ansible.builtin.include_vars: "defaults/{{ ansible_distribution }}.yml"
+
+- name: "Install packages"
+  ansible.builtin.package:
+    name: "{{ _packages }}"
+    state: "present"
+  become: true
+
+- name: "Create intel-undervolt config"
+  ansible.builtin.copy:
+    src: "files/intel-undervolt.conf__{{ inventory_hostname }}"
+    dest: "/etc/intel-undervolt.conf"
+  when: "(role_path ~ '/files/intel-undervolt.conf__' ~ inventory_hostname) is file"
+  become: true
+
+- name: "Create intel-undervolt service override"
+  ansible.builtin.copy:
+    src: "files/override.conf__{{ inventory_hostname }}"
+    dest: "/etc/systemd/system/intel-undervolt.service.d/override.conf"
+  when: "(role_path ~ '/files/override.conf__' ~ inventory_hostname) is file"
+  become: true
+
+- name: "Enable intel-undervolt.service"
+  ansible.builtin.service:
+    name: "intel-undervolt.service"
+    state: "started"
+    enabled: true
+  become: true
+

@@ -1,0 +1,29 @@
+---
+
+- name: "Install packages"
+  ansible.builtin.package:
+    name: "lizardbyte/sunshine"
+    state: present
+  become: true
+
+- name: "Ensure sunshine config directory exists"
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/sunshine"
+    state: "directory"
+
+- name: "Copy apps.json"
+  ansible.builtin.copy:
+    src: "files/apps.json"
+    dest: "{{ ansible_user_dir }}/.config/sunshine/apps.json"
+
+- name: "Get current sunshine binary path"
+  ansible.builtin.stat:
+    path: "/usr/bin/sunshine"
+  register: reg_sunshine_binary
+
+- name: "Set capabilities for sunshine"
+  community.general.capabilities:
+    path: "{{ reg_sunshine_binary.stat.lnk_source }}"
+    capability: "cap_sys_admin=p"
+    state: "present"
+  become: true

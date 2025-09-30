@@ -1,0 +1,25 @@
+---
+
+- name: "Copy EDID file"
+  ansible.builtin.copy:
+    src: "files/{{ inventory_hostname }}/edid/lg-34gn850.bin"
+    dest: "/usr/lib/firmware/edid/lg-34gn850.bin"
+    mode: "0755"
+  become: true
+  register: reg_edid
+  when: "(role_path ~ '/files/' ~ inventory_hostname ~ '/edid/lg-34gn850.bin') is file"
+
+- name: "Copy mkinitcpio config"
+  ansible.builtin.copy:
+    src: "files/mkinitcpio.conf__{{ inventory_hostname }}"
+    dest: "/etc/mkinitcpio.conf"
+    mode: "0644"
+  become: true
+  register: reg_mkinitcpio
+  when: "(role_path ~ '/files/mkinitcpio.conf__' ~ inventory_hostname) is file"
+
+- name: "Run mkinitcpio"
+  ansible.builtin.command:
+    cmd: "mkinitcpio -P"
+  become: true
+  when: "reg_edid.changed or reg_mkinitcpio.changed"

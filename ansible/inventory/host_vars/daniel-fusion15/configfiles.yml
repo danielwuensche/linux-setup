@@ -1,0 +1,10 @@
+---
+
+configfiles_aliases__local:
+  - "kbon": 'ite8291r3-ctl monocolor -b 5 --rgb 80,0,128'
+  - "kboff": 'ite8291r3-ctl off'
+  - "gpuoff": "sudo /usr/local/bin/gpuoff"
+  - "gpuon": "sudo /usr/local/bin/gpuon"
+
+configfiles_profile__local:
+  - 'export PATH=".local/share/gem/ruby/3.2.0/bin:$PATH"'

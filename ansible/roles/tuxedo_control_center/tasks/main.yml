@@ -1,0 +1,28 @@
+---
+
+- name: "Install packages"
+  ansible.builtin.package:
+    name:
+      - "tuxedo-control-center"
+      - "tuxedo-drivers-dkms"
+    state: "present"
+  become: true
+
+- name: "Copy config files"
+  ansible.builtin.copy:
+    src: "files/{{ item }}__{{ ansible_hostname }}"
+    dest: "/etc/tcc/{{ item }}"
+    mode: "0644"
+  become: true
+  when: "(role_path ~ '/files/' ~ item ~ '__' ~ ansible_hostname) is file"
+  loop:
+    - "profiles"
+    - "settings"
+
+- name: "Enable and start tccd"
+  ansible.builtin.service:
+    name: "tccd"
+    state: "started"
+    enabled: true
+  become: true
+

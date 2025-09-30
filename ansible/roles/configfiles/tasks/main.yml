@@ -1,0 +1,40 @@
+---
+
+- name: "Create .aliases"
+  ansible.builtin.template:
+    src: "templates/aliases.j2"
+    dest: "{{ ansible_user_dir }}/.aliases"
+  when:
+    - "configfiles_aliases is defined"
+    - "configfiles_aliases is iterable and configfiles_aliases is not string"
+
+- name: "Create .profile"
+  ansible.builtin.template:
+    src: "templates/profile.j2"
+    dest: "{{ ansible_user_dir }}/.profile"
+  when:
+    - "configfiles_profile is defined"
+    - "configfiles_profile is iterable and configfiles_profile is not string"
+
+- name: "Create .bashrc"
+  ansible.builtin.copy:
+    src: "files/bashrc"
+    dest: "{{ ansible_user_dir }}/.bashrc"
+
+- name: "Create .zshrc"
+  ansible.builtin.copy:
+    src: "files/zshrc"
+    dest: "{{ ansible_user_dir }}/.zshrc"
+
+- name: "Create .gitconfig"
+  ansible.builtin.copy:
+    src: "files/gitconfig"
+    dest: "{{ ansible_user_dir }}/.gitconfig"
+
+- name: "Create envvars"
+  ansible.builtin.template:
+    src: "templates/envvars.j2"
+    dest: "{{ ansible_user_dir }}/.config/environment.d/envvars.conf"
+  when:
+    - "configfiles_envvars is defined"
+    - "configfiles_envvars is iterable and configfiles_envvars is not string"

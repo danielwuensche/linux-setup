@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+
+sudo /usr/local/bin/gpuoff
+# export KWIN_DRM_DEVICES="/dev/dri/by-path/pci-0000\:00\:02.0-card"
+/usr/lib/plasma-dbus-run-session-if-needed /usr/bin/startplasma-wayland
+
