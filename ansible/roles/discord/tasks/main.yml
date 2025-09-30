@@ -6,8 +6,15 @@
     dest: "{{ ansible_user_dir }}/.local/bin/discord.sh"
     mode: "0744"
 
-- name: Copy discord desktop file
+- name: "Copy discord desktop file"
   ansible.builtin.copy:
     src: "files/discord.desktop"
     dest: "{{ ansible_user_dir }}/.local/share/applications/discord.desktop"
     mode: "0755"
+
+- name: "Create autostart symlink"
+  ansible.builtin.file:
+    src: "{{ ansible_user_dir }}/.local/share/applications/discord.desktop"
+    dest: "{{ ansible_user_dir }}/.config/autostart/discord.desktop"
+    state: "link"
+  when: "discord_autostart is true"
