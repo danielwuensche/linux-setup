@@ -12,9 +12,9 @@ url_api="https://discord.com/api/updates/stable?platform=linux"
 
 check_network() {
     _online="0"
-    while [ "$_online" = "0" ]; do
+    while [ "$_online" == "0" ]; do
         for interface in $(ls /sys/class/net | grep -v 'lo'); do
-            if [ "$(cat /sys/class/net/$interface/carrier 2>/dev/null)" = "1" ]; then
+            if [ "$(cat "/sys/class/net/$interface/carrier" 2>/dev/null)" == "1" ]; then
                 _online="1"
                 break 2
             fi
@@ -53,7 +53,7 @@ discord_run() {
     [ -f "$path_install_exec" ] && "$path_install_exec"
 }
 
-check_network 
+check_network
 
 needs_install=0
 

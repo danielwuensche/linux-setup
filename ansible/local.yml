@@ -5,8 +5,8 @@
   
   tasks:
     - ansible.builtin.include_role:
-        role: "{{ item }}"
-      when: "'role_' ~ item in group_names"
+        role: "{{ _role }}"
+      when: "'role_' ~ _role in group_names"
       loop:
         - "system"
         - "packages"
@@ -24,4 +24,5 @@
         - "thunderbird"
         - "discord"
         - "sunshine"
-
+      loop_control:
+        loop_var: _role

@@ -10,11 +10,11 @@
 
 - name: "Copy config files"
   ansible.builtin.copy:
-    src: "files/{{ item }}__{{ ansible_hostname }}"
+    src: "files/{{ item }}__{{ inventory_hostname }}"
     dest: "/etc/tcc/{{ item }}"
     mode: "0644"
   become: true
-  when: "(role_path ~ '/files/' ~ item ~ '__' ~ ansible_hostname) is file"
+  when: "(role_path ~ '/files/' ~ item ~ '__' ~ inventory_hostname) is file"
   loop:
     - "profiles"
     - "settings"
