@@ -1,0 +1,22 @@
+---
+
+- name: "Include distro-specific variables"
+  ansible.builtin.include_vars: "defaults/{{ ansible_distribution }}.yml"
+
+- name: "Install packages"
+  ansible.builtin.package:
+    name: "{{ __keepassxc_packages }}"
+    state: "present"
+  become: true
+
+- name: "Create desktop file (user)"
+  ansible.builtin.template:
+    src: "templates/keepassxc.desktop.j2"
+    dest: "{{ __keepassxc_desktop_file_path_user }}"
+
+- name: "Create autostart symlink"
+  ansible.builtin.file:
+    src: "{{ __keepassxc_desktop_file_path_user }}"
+    dest: "{{ ansible_user_dir }}/.config/autostart/{{ __keepassxc_desktop_file_name }}"
+    state: "link"
+  when: "__keepassxc_autostart is true"

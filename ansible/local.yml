@@ -4,7 +4,8 @@
   hosts: all
   
   tasks:
-    - ansible.builtin.include_role:
+    - name: "Execute role"
+      ansible.builtin.include_role:
         role: "{{ _role }}"
       when: "'role_' ~ _role in group_names"
       loop:
@@ -20,6 +21,7 @@
         - "ite8291"
         - "configfiles"
         - "neovim"
+        - "keepassxc"
         - "brave"
         - "thunderbird"
         - "discord"

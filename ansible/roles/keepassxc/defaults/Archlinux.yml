@@ -1,0 +1,9 @@
+---
+
+_keepassxc_packages: 
+  - "keepassxc"
+_keepassxc_desktop_file_name: "org.keepassxc.KeePassXC.desktop"
+_keepassxc_desktop_file_path_user: "{{ ansible_user_dir }}/.local/share/applications/{{ __keepassxc_desktop_file_name }}"
+_keepassxc_command: "keepassxc %f"
+_keepassxc_autostart: false
+
