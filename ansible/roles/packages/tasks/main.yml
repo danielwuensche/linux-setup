@@ -13,3 +13,9 @@
   when: 
     - "packages_install is defined"
     - "packages_install is iterable and packages_install is not string"
+
+- name: "Update flatpaks"
+  ansible.builtin.command: 
+    cmd: "flatpak update --noninteractive"
+  register: reg_flatpak_update
+  changed_when: "'app/' in reg_flatpak_update.stdout"
