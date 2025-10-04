@@ -4,6 +4,12 @@
   ansible.builtin.package:
     upgrade: true
   become: true
+  register: reg_packages_update
+
+- name: "Print updated packages"
+  ansible.builtin.debug:
+    var: "reg_packages_update.packages"
+  when: "reg_packages_update.changed is true"
 
 - name: "Install packages"
   ansible.builtin.package:
