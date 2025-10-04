@@ -1,8 +1,6 @@
 ---
 
 __keepassxc_packages: "{{ keepassxc_packages if keepassxc_packages is defined else _keepassxc_packages }}"
-__keepassxc_desktop_file_name: "{{ keepassxc_desktop_file_name if keepassxc_desktop_file_name is defined else _keepassxc_desktop_file_name }}"
-__keepassxc_desktop_file_path_user: "{{ keepassxc_desktop_file_path_user if keepassxc_desktop_file_path_user is defined else _keepassxc_desktop_file_path_user }}"
 __keepassxc_command: "{{ keepassxc_command if keepassxc_command is defined else _keepassxc_command }}"
 __keepassxc_autostart: "{{ keepassxc_autostart if keepassxc_autostart is defined else _keepassxc_autostart }}"
 

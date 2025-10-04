@@ -1,4 +1,4 @@
 ---
 
-keepassxc_command: 'keepassxc --keyfile "$HOME/syncthing/passwords/secrets.keyx" "$HOME/syncthing/passwords/Secrets.kdbx %f'
+keepassxc_command: 'keepassxc --keyfile "${HOME}/syncthing/passwords/secrets.keyx" "${HOME}/syncthing/passwords/Secrets.kdbx"'
 keepassxc_autostart: true

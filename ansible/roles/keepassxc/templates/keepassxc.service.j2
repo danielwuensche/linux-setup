@@ -1,0 +1,8 @@
+[Unit]
+Description=KeePassXC
+
+[Service]
+Type=simple
+StandardOutput=journal
+ExecStart={{ __keepassxc_command }}
+
