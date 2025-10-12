@@ -1,0 +1,69 @@
+---
+
+packages_install:
+  - base
+  - linux-lts
+  - linux-firmware
+  - vim
+  - lvm2
+  - man-db
+  - xkeyboard-config
+
+# fdisk /dev/nvme0n1
+# mkfs.fat -F 32 /dev/nvme0n1p1
+# mkswap /dev/nvme0n1p2
+# pvcreate /dev/nvme0n1p3
+# vgcreate vg1 /dev/nvme0n1p3
+# lvcreate -L 50G vg1 -n root
+# lvcreate -l 100%FREE vg1 -n home
+# lvreduce -L -1G vg1/home
+# mkfs.ext4 /dev/vg1/root
+# mkfs.ext4 /dev/vg1/home
+# mount /dev/vg1/root /mnt
+# mount --mkdir /dev/vg1/home /mnt/home
+# mount --mkdir /dev/nvme0n1p1 /mnt/boot
+# swapon dev/nvme0n1p2
+# pacstrap -K /mnt base linux-lts linux-firmware vim lvm2 man-db xkeyboard-config sudo sudo-rs networkmanager intel-ucode openssh
+# genfstab -U /mnt >> /mnt/etc/fstab
+# arch-chroot -S /mnt
+
+# ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+# hwclock --systohc
+  # systemctl enable systemd-timesyncd
+# /etc/locale.gen
+  # uncomment "en_US.UTF-8"
+# locale-gen
+# localectl set-x11-keymap us pc105 altgr-intl
+# cat "LANG=en_US.UTF-8" > /etc/locale.conf
+# cat "daniel-pc" > /etc/hostname
+# /etc/mkinitcpio.conf
+  # add "lvm2" in HOOKS-line between 'block' and 'filesystems'
+  # change 'udev' to 'systemd'
+# mkinitcpio -P
+# set root password
+  # passwd
+# bootctl install
+# Create pacman hook for systemd-boot
+# cp /usr/share/systemd/bootctl/arch.conf /boot/loader/entries/arch.conf
+# cp /boot/loader/entries/arch.conf /boot/loader/entries/arch-fallback.conf
+
+
+# systemctl enable --now systemd-resolved NetworkManager
+# useradd -m daniel
+# usermod -aG wheel daniel
+# passwd daniel
+
+# /etc/sudoers.d/20-wheel
+  # %wheel ALL=(ALL:ALL) ALL
+# /etc/sudoers.d/05-defaults
+  # Defaults editor=/usr/bin/rvim
+
+# pacman -Syu plasma
+  # qt6-multimedia-ffmpeg
+  # pipewire-jack
+  # noto-fonts
+
+# pacman -Syu noto-fonts ttf-liberation ttf-dejavu ttc-iosevka
+# systemctl enable sddm
+
+# pacman -Syu firefox
