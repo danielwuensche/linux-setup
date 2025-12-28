@@ -1,7 +1,7 @@
 ---
 
 - name: "Include distro-specific variables"
-  ansible.builtin.include_vars: "defaults/{{ ansible_distribution }}.yml"
+  ansible.builtin.include_vars: "defaults/{{ ansible_facts.distribution }}.yml"
 
 - name: "Install packages"
   ansible.builtin.package:
@@ -9,10 +9,15 @@
     state: "present"
   become: true
 
+- name: "Create user service directory"
+  ansible.builtin.file:
+    path: "{{ ansible_facts.user_dir }}/.config/systemd/user"
+    state: "directory"
+
 - name: "Create user service"
   ansible.builtin.template:
     src: "templates/keepassxc.service.j2"
-    dest: "{{ ansible_user_dir }}/.config/systemd/user/keepassxc.service"
+    dest: "{{ ansible_facts.user_dir }}/.config/systemd/user/keepassxc.service"
   register: "reg_keepassxc_service"
 
 - name: "Reload systemd daemon"

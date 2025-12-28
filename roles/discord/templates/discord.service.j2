@@ -4,6 +4,7 @@ Description=Discord
 [Service]
 Type=simple
 StandardOutput=journal
+ExecStartPre=sleep 5
 ExecStart={{ discord_script_path }}
 
 [Install]

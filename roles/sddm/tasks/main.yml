@@ -1,5 +1,16 @@
 ---
 
+- name: "Install SDDM"
+  ansible.builtin.package:
+    name: "sddm"
+    state: "present"
+  become: true
+
+- name: "Enable SDDM"
+  ansible.builtin.service:
+    name: "sddm"
+    enabled: true
+
 - name: "Copy SDDM Wayland config"
   ansible.builtin.copy:
     src: "files/10-wayland.conf"

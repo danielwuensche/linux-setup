@@ -47,15 +47,15 @@ packages_install:
 # bootctl install
 # Create pacman hook for systemd-boot
   # /etc/pacman.d/hooks/95-systemd-boot.hook
-      [Trigger]
-      Type = Package
-      Operation = Upgrade
-      Target = systemd
-      
-      [Action]
-      Description = Gracefully upgrading systemd-boot...
-      When = PostTransaction
-      Exec = /usr/bin/systemctl restart systemd-boot-update.service
+    # [Trigger]
+    # Type = Package
+    # Operation = Upgrade
+    # Target = systemd
+    # 
+    # [Action]
+    # Description = Gracefully upgrading systemd-boot...
+    # When = PostTransaction
+    # Exec = /usr/bin/systemctl restart systemd-boot-update.service
 
 # cp /usr/share/systemd/bootctl/arch.conf /boot/loader/entries/arch.conf
 # cp /boot/loader/entries/arch.conf /boot/loader/entries/arch-fallback.conf
@@ -85,3 +85,6 @@ packages_install:
 # flatpak install brave
 # reboot
   # localectl set-x11-keymap us pc105 altgr-intl
+
+# pacman -Syu lact
+# flatpak install logseq

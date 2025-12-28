@@ -1,5 +1,11 @@
 ---
 
+- name: "Create EDID directory"
+  ansible.builtin.file:
+    path: "/usr/lib/firmware/edid"
+    state: "directory"
+  become: true
+
 - name: "Copy EDID file"
   ansible.builtin.copy:
     src: "files/{{ inventory_hostname }}/edid/lg-34gn850.bin"

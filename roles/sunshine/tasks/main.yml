@@ -8,13 +8,13 @@
 
 - name: "Ensure sunshine config directory exists"
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.config/sunshine"
+    path: "{{ ansible_facts.user_dir }}/.config/sunshine"
     state: "directory"
 
 - name: "Copy apps.json"
   ansible.builtin.copy:
     src: "files/apps.json"
-    dest: "{{ ansible_user_dir }}/.config/sunshine/apps.json"
+    dest: "{{ ansible_facts.user_dir }}/.config/sunshine/apps.json"
 
 - name: "Get current sunshine binary path"
   ansible.builtin.stat:
@@ -27,3 +27,16 @@
     capability: "cap_sys_admin=p"
     state: "present"
   become: true
+
+- name: "Enable service"
+  ansible.builtin.service:
+    name: "sunshine"
+    scope: "user"
+    enabled: true
+
+- name: "Start service"
+  ansible.builtin.service:
+    name: "sunshine"
+    scope: "user"
+    state: "started"
+

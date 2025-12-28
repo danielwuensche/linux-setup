@@ -19,14 +19,14 @@
   become: true
   when: "(role_path ~ '/files/pacman.conf__' ~ inventory_hostname) is file"
 
-- name: "Get pacman mirror countries"
-  ansible.builtin.command:
-    cmd: "pacman-mirrors -lc"
-  register: reg_pacman_mirrors
-  changed_when: false
-
-- name: "Set pacman mirror countries"
-  ansible.builtin.command:
-    cmd: "pacman-mirrors -c '{{  }}'"
-  become: true
-  when: "(reg_pacman_mirrors | list) == system_pacman_mirror_countries"
+# - name: "Get pacman mirror countries"
+#   ansible.builtin.command:
+#     cmd: "pacman-mirrors -lc"
+#   register: reg_pacman_mirrors
+#   changed_when: false
+# 
+# - name: "Set pacman mirror countries"
+#   ansible.builtin.command:
+#     cmd: "pacman-mirrors -c '{{ system_pacman_mirror_countries | join(',') }}'"
+#   become: true
+#   when: "(reg_pacman_mirrors | list) == system_pacman_mirror_countries"
