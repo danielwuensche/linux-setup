@@ -1,0 +1,3 @@
+---
+
+mkinitcpio_edid_file: "edid/edid.bin"

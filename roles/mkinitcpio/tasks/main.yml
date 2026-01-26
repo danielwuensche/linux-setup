@@ -8,12 +8,12 @@
 
 - name: "Copy EDID file"
   ansible.builtin.copy:
-    src: "files/{{ inventory_hostname }}/edid/lg-34gn850.bin"
-    dest: "/usr/lib/firmware/edid/lg-34gn850.bin"
+    src: "files/{{ inventory_hostname }}/{{ mkinitcpio_edid_file }}"
+    dest: "/usr/lib/firmware/edid/edid.bin"
     mode: "0755"
   become: true
   register: reg_edid
-  when: "(role_path ~ '/files/' ~ inventory_hostname ~ '/edid/lg-34gn850.bin') is file"
+  when: "(role_path ~ '/files/' ~ inventory_hostname ~ '/' ~ mkinitcpio_edid_file) is file"
 
 - name: "Copy mkinitcpio config"
   ansible.builtin.copy:
