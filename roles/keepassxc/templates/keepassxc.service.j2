@@ -4,6 +4,7 @@ Description=KeePassXC
 [Service]
 Type=simple
 StandardOutput=journal
+ExecStartPre=sleep 5
 ExecStart={{ __keepassxc_command }}
 
 [Install]
