@@ -1,0 +1,22 @@
+---
+
+- name: "Set internal variable for options"
+  ansible.builtin.set_fact:
+    _options: "{{ current_entry.options | default([]) }}"
+
+- name: "Add option 'rootfstype'"
+  ansible.builtin.set_fact:
+    _options: "{{ ['rootfstype=' ~ _mount_root_fstype] + _options }}"
+  when: "_options | select('match', 'rootfstype=') | length < 1"
+
+- name: "Add option 'root'"
+  ansible.builtin.set_fact:
+    _options: "{{ ['root=' ~ 'UUID=' ~ _mount_root_uuid] + _options }}"
+  when: "_options | select('match', 'root=') | length < 1"
+
+- name: "Create loader entry"
+  ansible.builtin.template:
+    src: "loader-entry.conf.j2"
+    dest: "{{ systemd_boot_loader_entry_path }}/{{ current_entry.name }}.conf"
+  become: true
+

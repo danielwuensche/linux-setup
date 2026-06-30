@@ -1,4 +1,6 @@
 ---
 
-_packages: 
-  - "brave-browser"
+_packages:
+  - "intel-undervolt"
+
+

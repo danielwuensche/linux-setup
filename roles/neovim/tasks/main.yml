@@ -19,4 +19,11 @@
   ansible.builtin.git:
     repo: "{{ neovim_config_git }}"
     dest: "{{ neovim_config_dir }}"
+    accept_newhostkey: true
 
+- name: "Set Push URL"
+  ansible.builtin.git_config:
+    repo: "{{ neovim_config_dir }}"
+    scope: "local"
+    name: "remote.origin.pushurl"
+    value: "{{ neovim_config_git_push }}"

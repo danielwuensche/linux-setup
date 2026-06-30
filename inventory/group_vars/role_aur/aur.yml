@@ -1,0 +1,5 @@
+---
+
+aur_local_user: "aur-user"
+
+aur_install: "{{ query('community.general.merge_variables', 'aur_install__', pattern_type='prefix') | flatten }}"

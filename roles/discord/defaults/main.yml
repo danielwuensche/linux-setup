@@ -1,4 +1,6 @@
 ---
 
-discord_script_path: "{{ ansible_facts.user_dir }}/.local/bin/discord.sh"
-discord_autostart: false
+discord_packages:
+  - "discord"
+discord_path: "/usr/bin/discord"
+discord_autostart: true

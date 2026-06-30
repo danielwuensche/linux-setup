@@ -1,0 +1,12 @@
+---
+
+lact_config_gpus:
+  - name: "AMD Radeon RX 6800 XT"
+    config: |
+      fan_control_enabled: false
+      power_cap: 255.0
+      performance_level: auto
+      max_core_clock: 2800
+      max_memory_clock: 1057
+      voltage_offset: -100
+

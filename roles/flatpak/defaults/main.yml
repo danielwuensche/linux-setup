@@ -1,0 +1,4 @@
+---
+
+flatpak_packages:
+  - "flatpak"

@@ -18,25 +18,18 @@
 
 - name: "Get current sunshine binary path"
   ansible.builtin.stat:
-    path: "/usr/bin/sunshine"
+   path: "/usr/bin/sunshine"
   register: reg_sunshine_binary
-
-- name: "Set capabilities for sunshine"
-  community.general.capabilities:
-    path: "{{ reg_sunshine_binary.stat.lnk_source }}"
-    capability: "cap_sys_admin=p"
-    state: "present"
-  become: true
 
 - name: "Enable service"
   ansible.builtin.service:
-    name: "sunshine"
+    name: "{{ sunshine_service_name }}"
     scope: "user"
     enabled: true
 
 - name: "Start service"
   ansible.builtin.service:
-    name: "sunshine"
+    name: "{{ sunshine_service_name }}"
     scope: "user"
     state: "started"
 

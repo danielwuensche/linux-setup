@@ -1,0 +1,8 @@
+# {{ ansible_managed }}
+
+title {{ current_entry.title }}
+linux {{ current_entry.linux }}
+initrd {{ current_entry.initrd }}
+{% if _options is defined and _options | length > 0 -%}
+options {{ _options | join(' ') }}
+{% endif %}

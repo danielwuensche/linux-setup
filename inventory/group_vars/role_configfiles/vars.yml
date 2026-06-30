@@ -15,15 +15,15 @@ configfiles_aliases__global:
   "se": 'sudoedit'
   "vim": 'nvim'
 
+configfiles_envvars__global:
+  "SSH_AUTH_SOCK": "$XDG_RUNTIME_DIR/ssh-agent.socket"
+
 configfiles_profile__global:
   - 'export VISUAL=nvim'
   - 'export EDITOR=$VISUAL'
   - 'export GPG_TTY=$(tty)'
   - 'export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"'
 
-configfiles_envvars__global:
-  "SSH_AUTH_SOCK": "$XDG_RUNTIME_DIR/ssh-agent.socket"
-
 configfiles_aliases: "{{ lookup('community.general.merge_variables', 'configfiles_aliases__', pattern_type='prefix') }}"
-configfiles_profile: "{{ lookup('community.general.merge_variables', 'configfiles_profile__', pattern_type='prefix') }}"
 configfiles_envvars: "{{ lookup('community.general.merge_variables', 'configfiles_envvars__', pattern_type='prefix') }}"
+configfiles_profile: "{{ query('community.general.merge_variables', 'configfiles_profile__', pattern_type='prefix') | flatten }}"

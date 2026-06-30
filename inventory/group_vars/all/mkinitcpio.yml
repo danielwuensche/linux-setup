@@ -1,0 +1,17 @@
+---
+
+mkinitcpio_hooks__common:
+  - "base"
+  - "systemd"
+  - "autodetect"
+  - "microcode"
+  - "modconf"
+  - "kms"
+  - "keyboard"
+  - "keymap"
+  - "sd-vconsole"
+  - "block"
+  - "lvm2"
+  - "filesystems"
+  - "fsck"
+

@@ -1,0 +1,10 @@
+---
+
+sudoers_config_files__common:
+  - name: "05-defaults"
+    content: |
+      Defaults editor=/usr/bin/rvim
+  - name: "20-wheel"
+    content: |
+      %wheel ALL=(ALL:ALL) ALL
+

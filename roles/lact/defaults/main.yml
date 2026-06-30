@@ -1,0 +1,15 @@
+---
+
+lact_packages:
+  - "lact"
+
+lact_config_path: "/etc/lact"
+
+lact_service_name: "lactd"
+lact_service_enabled: "true"
+lact_service_state: "started"
+
+lact_config_gpus: []
+  # name: "" # used to get the gpu ID via 'lact cli list-gpus'
+  # config: |
+  #   # config block for the gpu

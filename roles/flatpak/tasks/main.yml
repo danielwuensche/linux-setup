@@ -1,0 +1,34 @@
+---
+
+- name: "Install flatpak package"
+  ansible.builtin.package:
+    name: "{{ flatpak_packages }}"
+    state: "present"
+  become: true
+
+- name: "Install flatpaks"
+  community.general.flatpak:
+    name: "{{ flatpak_install }}"
+    state: "present"
+  become: true
+  register: reg_flatpak_install
+  when:
+    - "flatpak_install is defined"
+    - "flatpak_install | length > 0"
+
+- name: "Print newly installed flatpaks"
+  ansible.builtin.debug:
+    var: reg_flatpak_install.stdout_lines
+  when: reg_flatpak_install.changed is true
+
+- name: "Update flatpaks"
+  ansible.builtin.command: 
+    cmd: "flatpak update --noninteractive"
+  become: true
+  register: reg_flatpak_update
+  changed_when: "'app/' in reg_flatpak_update.stdout"
+
+- name: "Print updated flatpaks"
+  ansible.builtin.debug:
+    var: reg_flatpak_update.stdout_lines | select('match', 'app/')
+  when: reg_flatpak_update.changed is true

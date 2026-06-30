@@ -1,0 +1,4 @@
+---
+
+packages_install__thunderbird:
+  - "thunderbird"

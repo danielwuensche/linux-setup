@@ -1,0 +1,13 @@
+---
+
+sudoers_packages:
+  - "sudo"
+
+sudoers_config_path: "/etc/sudoers.d"
+sudoers_config_files:
+  - name: "05-defaults"
+    content: |
+      Defaults editor=/usr/bin/rvim
+  - name: "20-wheel"
+    content: |
+      %wheel ALL=(ALL:ALL) ALL

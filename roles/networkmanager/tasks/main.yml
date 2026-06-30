@@ -1,0 +1,21 @@
+---
+
+- name: "Install networkmanager"
+  ansible.builtin.package:
+    name: "networkmanager"
+    state: "present"
+  become: true
+
+- name: "Ensure desired state of service"
+  ansible.builtin.service:
+    name: "{{ networkmanager_service_name }}"
+    enabled: "{{ networkmanager_service_enabled }}"
+    state: "{{ networkmanager_service_state }}"
+  become: true
+
+- name: "Include connection tasks"
+  ansible.builtin.include_tasks: connection.yml
+  loop: "{{ networkmanager_connections }}"
+  loop_control:
+    loop_var: "current_connection"
+

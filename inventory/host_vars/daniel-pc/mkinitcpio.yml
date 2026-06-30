@@ -1,0 +1,6 @@
+---
+
+mkinitcpio_files__sunshine:
+  - path: "/usr/lib/firmware/edid/edid.bin"
+    src: "{{ role_path }}/files/{{ inventory_hostname }}/edid.bin"
+

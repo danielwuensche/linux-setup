@@ -1,0 +1,3 @@
+---
+
+users: "{{ query('community.general.merge_variables', 'users__', pattern_type='prefix') | flatten }}"

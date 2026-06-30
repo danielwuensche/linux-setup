@@ -1,0 +1,7 @@
+---
+
+packages_install__gui:
+  - "vlc"
+  - "vlc-plugins-extra"
+  - "wl-clipboard"
+

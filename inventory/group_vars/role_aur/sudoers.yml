@@ -1,0 +1,7 @@
+---
+
+sudoers_config_files__aur:
+  - name: "20-aur"
+    content: |
+      {{ aur_local_user }} ALL=(ALL) NOPASSWD: /usr/bin/pacman
+

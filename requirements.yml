@@ -2,3 +2,7 @@
 
 collections:
   - name: "community.general"
+  - name: "ansible.utils"
+  - name: "ansible.posix"
+  - name: "kewlfft.aur"
+

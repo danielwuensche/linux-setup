@@ -8,6 +8,13 @@ packages_install:
   - lvm2
   - man-db
   - xkeyboard-config
+  - sudo
+  - networkmanager
+  - intel-ucode
+  - openssh
+  - git
+  - ansible-core
+  - 7zip
 
 # fdisk /dev/nvme0n1
   # 1G EFI System

@@ -1,0 +1,26 @@
+---
+
+- name: "Create file directory"
+  ansible.builtin.file:
+    path: "{{ item.path | dirname }}"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  become: true
+  register: _reg_file_dir
+
+- name: "Copy file"
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.path }}"
+    mode: "0644"
+  become: true
+  register: _reg_file
+
+- name: "Set fact '_mkinitcpio_changed'"
+  ansible.builtin.set_fact:
+    _mkinitcpio_changed: true
+  when:
+    - "_reg_file_dir.changed | bool is true
+        or _reg_file.changed | bool is true"

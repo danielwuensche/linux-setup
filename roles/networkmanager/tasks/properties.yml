@@ -1,0 +1,22 @@
+---
+
+- name: "Get connection '{{ current_connection.name }}' properties"
+  ansible.builtin.command:
+    cmd: "nmcli connection show '{{ current_connection.name }}'"
+  changed_when: false
+  register: reg_properties
+
+- name: "Find current property value"
+  ansible.builtin.set_fact:
+    _property_data: "{{ reg_properties.stdout_lines | select('match', item.name ~ ':') | first | split(':') | reject('eq', item.name) | join | trim }}"
+
+- name: "Modify connection '{{ current_connection.name }}' property '{{ item.name }}'"
+  ansible.builtin.command:
+    cmd: "nmcli connection modify '{{ current_connection.name }}' '{{ item.name }}' '{{ item.data }}'"
+  become: true
+  vars:
+    _regex: '(?:\s\(default\))*'
+  when: >-
+    _property_data is not match(item.data ~ _regex)
+    or (item.data == '' and _property_data not in ['', '--'])
+

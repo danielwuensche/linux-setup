@@ -1,3 +1,20 @@
 ---
 
-mkinitcpio_edid_file: "edid/edid.bin"
+mkinitcpio_modules: []
+mkinitcpio_binaries: []
+mkinitcpio_files: []
+mkinitcpio_hooks:
+  - base
+  - systemd
+  - autodetect
+  - microcode
+  - modconf
+  - kms
+  - keyboard
+  - keymap
+  - sd-vconsole
+  - block
+  - lvm2
+  - filesystems
+  - fsck
+

@@ -5,7 +5,7 @@ Description=Discord
 Type=simple
 StandardOutput=journal
 ExecStartPre=sleep 5
-ExecStart={{ discord_script_path }}
+ExecStart={{ discord_path }}
 
 [Install]
 WantedBy=graphical-session.target

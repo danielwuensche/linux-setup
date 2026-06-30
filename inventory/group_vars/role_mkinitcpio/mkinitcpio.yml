@@ -1,0 +1,7 @@
+---
+
+mkinitcpio_modules: "{{ query('community.general.merge_variables', 'mkinitcpio_modules__', pattern_type='prefix') | flatten }}"
+mkinitcpio_binaries: "{{ query('community.general.merge_variables', 'mkinitcpio_binaries__', pattern_type='prefix') | flatten }}"
+mkinitcpio_files: "{{ query('community.general.merge_variables', 'mkinitcpio_files__', pattern_type='prefix') | flatten }}"
+mkinitcpio_hooks: "{{ query('community.general.merge_variables', 'mkinitcpio_hooks__', pattern_type='prefix') | flatten }}"
+

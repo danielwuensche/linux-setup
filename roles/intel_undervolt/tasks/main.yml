@@ -9,24 +9,22 @@
     state: "present"
   become: true
 
-- name: "Create intel-undervolt config"
-  ansible.builtin.copy:
-    src: "files/intel-undervolt.conf__{{ inventory_hostname }}"
+- name: "Create config"
+  ansible.builtin.template:
+    src: "intel-undervolt.conf.j2"
     dest: "/etc/intel-undervolt.conf"
-  when: "(role_path ~ '/files/intel-undervolt.conf__' ~ inventory_hostname) is file"
   become: true
 
-- name: "Create intel-undervolt service override"
+- name: "Create service override"
   ansible.builtin.copy:
-    src: "files/override.conf__{{ inventory_hostname }}"
+    src: "override.conf"
     dest: "/etc/systemd/system/intel-undervolt.service.d/override.conf"
-  when: "(role_path ~ '/files/override.conf__' ~ inventory_hostname) is file"
   become: true
 
-- name: "Enable intel-undervolt.service"
+- name: "Enable service"
   ansible.builtin.service:
-    name: "intel-undervolt.service"
-    state: "started"
-    enabled: true
+    name: "{{ intel_undervolt_service_name }}"
+    enabled: "{{ intel_undervolt_service_enabled }}"
+    state: "{{ intel_undervolt_service_state }}"
   become: true
 

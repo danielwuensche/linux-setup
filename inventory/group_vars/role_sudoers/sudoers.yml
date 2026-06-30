@@ -1,0 +1,3 @@
+---
+
+sudoers_config_files: "{{ query('community.general.merge_variables', 'sudoers_config_files__', pattern_type='prefix') | flatten }}"

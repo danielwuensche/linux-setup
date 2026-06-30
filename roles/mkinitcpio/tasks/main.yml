@@ -1,31 +1,52 @@
 ---
 
-- name: "Create EDID directory"
-  ansible.builtin.file:
-    path: "/usr/lib/firmware/edid"
-    state: "directory"
-  become: true
+- name: "Initialize variable '_mkinitcpio_changed'"
+  ansible.builtin.set_fact:
+    _mkinitcpio_changed: false
 
-- name: "Copy EDID file"
-  ansible.builtin.copy:
-    src: "files/{{ inventory_hostname }}/{{ mkinitcpio_edid_file }}"
-    dest: "/usr/lib/firmware/edid/edid.bin"
-    mode: "0755"
+- name: "Modify /etc/mkinitcpio.conf (without 'files')"
+  ansible.builtin.lineinfile:
+    path: "/etc/mkinitcpio.conf"
+    search_string: "{{ item | upper }}=("
+    line: "{{ item | upper }}=({{ hostvars[inventory_hostname]['mkinitcpio_' ~ item] | join(' ') if hostvars[inventory_hostname]['mkinitcpio_' ~ item] | length > 0 else '' }}) # ansible_managed"
   become: true
-  register: reg_edid
-  when: "(role_path ~ '/files/' ~ inventory_hostname ~ '/' ~ mkinitcpio_edid_file) is file"
+  register: reg_mkinitcpio_conf
+  loop:
+    - "modules"
+    - "binaries"
+    - "hooks"
 
-- name: "Copy mkinitcpio config"
-  ansible.builtin.copy:
-    src: "files/mkinitcpio.conf__{{ inventory_hostname }}"
-    dest: "/etc/mkinitcpio.conf"
-    mode: "0644"
-  become: true
-  register: reg_mkinitcpio
-  when: "(role_path ~ '/files/mkinitcpio.conf__' ~ inventory_hostname) is file"
+- name: "Set fact '_mkinitcpio_changed'"
+  ansible.builtin.set_fact:
+    _mkinitcpio_changed: true
+  when:
+    - "reg_mkinitcpio_conf.changed | bool is true"
+
+- name: "Block: files"
+  when:
+    - "mkinitcpio_files is defined"
+    - "mkinitcpio_files | length > 0"
+  block:
+    - name: "Include tasks: files.yml"
+      ansible.builtin.include_tasks: "files.yml"
+      loop: "{{ mkinitcpio_files }}"
+
+    - name: "Modify /etc/mkinitcpio.conf (only 'files')"
+      ansible.builtin.lineinfile:
+        path: "/etc/mkinitcpio.conf"
+        search_string: "FILES=("
+        line: "FILES=({{ mkinitcpio_files | map(attribute='path') | join(' ') if mkinitcpio_files | length > 0 else '' }}) # ansible_managed"
+      become: true
+      register: reg_mkinitcpio_conf_files
+
+    - name: "Set fact '_mkinitcpio_changed'"
+      ansible.builtin.set_fact:
+        _mkinitcpio_changed: true
+      when:
+        - "reg_mkinitcpio_conf_files.changed | bool is true"
 
 - name: "Run mkinitcpio"
   ansible.builtin.command:
     cmd: "mkinitcpio -P"
   become: true
-  when: "reg_edid.changed or reg_mkinitcpio.changed"
+  when: "_mkinitcpio_changed"

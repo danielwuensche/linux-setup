@@ -1,0 +1,15 @@
+---
+
+packages_install__gaming:
+  - "wine"
+  - "wine-mono"
+  - "winetricks"
+  - "lib32-ldap"
+  - "lib32-gnutls"
+  - "lutris"
+  - "mangohud"
+  - "gamemode"
+
+flatpak_install__gaming:
+  - "net.davidotek.pupgui2" # ProtonUp-Qt
+

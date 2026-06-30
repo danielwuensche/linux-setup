@@ -1,0 +1,3 @@
+---
+
+flatpak_install: "{{ query('community.general.merge_variables', 'flatpak_install__', pattern_type='prefix') | flatten }}"

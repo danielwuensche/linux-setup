@@ -1,0 +1,14 @@
+---
+
+networkmanager_service_name: "NetworkManager"
+networkmanager_service_enabled: "true"
+networkmanager_service_state: "started"
+
+networkmanager_connections: []
+  # - type: "ethernet"
+  #   name: "Wired connection 1"
+  #   interface_macaddress: "XX:XX:XX:XX:XX:XX"
+  #   state: "present"
+  #   properties:
+  #   - name: "802-3-ethernet.wake-on-lan"
+  #     data: "magic"

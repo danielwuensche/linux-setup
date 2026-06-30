@@ -2,22 +2,9 @@
 
 - name: "Install packages"
   ansible.builtin.package:
-    name:
-      - "wget"
-      - "jq"
+    name: "{{ discord_packages }}"
     state: "present"
   become: true
-
-- name: "Create script directory"
-  ansible.builtin.file:
-    path: "{{ discord_script_path | ansible.builtin.dirname }}"
-    state: "directory"
-
-- name: "Copy discord script"
-  ansible.builtin.copy:
-    src: "files/discord.sh"
-    dest: "{{ discord_script_path }}"
-    mode: "0700"
 
 - name: "Create user service directory"
   ansible.builtin.file:

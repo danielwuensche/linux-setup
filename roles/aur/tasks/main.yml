@@ -1,0 +1,45 @@
+---
+
+- name: "Install dependencies"
+  ansible.builtin.package:
+    name: "{{ aur_helper_deps }}"
+    state: "present"
+  become: true
+
+- name: "Install AUR helper"
+  kewlfft.aur.aur:
+    name: "{{ aur_helper }}"
+    use: "makepkg"
+    state: "present"
+  become: true
+  become_user: "{{ aur_local_user }}"
+
+- name: "Install AUR packages"
+  kewlfft.aur.aur:
+    name: "{{ aur_install }}"
+    use: "{{ aur_helper }}"
+    state: "present"
+  become: true
+  become_user: "{{ aur_local_user }}"
+  when: "aur_install | length > 0"
+  register: reg_aur_install
+
+- name: "Print newly installed packages"
+  ansible.builtin.debug:
+    var: reg_aur_install.installed
+  when: "reg_aur_install.changed is true"
+
+- name: "Upgrade AUR packages"
+  kewlfft.aur.aur:
+    upgrade: true
+    use: "{{ aur_helper }}"
+    aur_only: true
+  become: true
+  become_user: "{{ aur_local_user }}"
+  register: reg_aur_update
+
+- name: "Print updated packages"
+  ansible.builtin.debug:
+    var: reg_aur_update.installed
+  when: "reg_aur_update.changed is true"
+

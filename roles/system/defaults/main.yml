@@ -1,6 +1,6 @@
 ---
 
-system_pacman_mirror_countries:
-  - "Austria"
-  - "Germany"
-  - "Netherlands"
+system_timezone: "Europe/Berlin"
+system_locale: "en_US.UTF-8"
+system_locale_charset: "UTF-8"
+

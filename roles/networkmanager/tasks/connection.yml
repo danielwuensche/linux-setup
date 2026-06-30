@@ -1,0 +1,24 @@
+---
+
+- name: "Find interface name by mac address"
+  ansible.builtin.set_fact:
+    _interface_name: "{{ item }}"
+  loop: "{{ ansible_facts['interfaces'] }}"
+  when: 
+    - "current_connection.interface_macaddress is defined"
+    - "_interface_name is not defined"
+    - "ansible_facts[item].macaddress is defined and ansible_facts[item].macaddress == current_connection.interface_macaddress"
+
+- name: "Ensure connection '{{ current_connection.name }}' is {{ current_connection.state }}"
+  community.general.nmcli:
+    type: "{{ current_connection.type }}"
+    conn_name: "{{ current_connection.name }}"
+    ifname: "{{ _interface_name if _interface_name is defined else omit }}"
+    state: "{{ current_connection.state }}"
+    conn_reload: true
+  become: true
+
+- name: "Include connection property tasks"
+  ansible.builtin.include_tasks: properties.yml
+  loop: "{{ current_connection.properties }}"
+

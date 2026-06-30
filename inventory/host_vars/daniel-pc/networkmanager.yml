@@ -1,0 +1,11 @@
+---
+
+networkmanager_connections:
+  - type: "ethernet"
+    name: "Lan 1 WOL"
+    interface_macaddress: "74:56:3c:37:59:e5"
+    state: "present"
+    properties:
+      - name: "802-3-ethernet.wake-on-lan"
+        data: "magic"
+

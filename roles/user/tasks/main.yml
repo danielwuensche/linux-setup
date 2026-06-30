@@ -1,0 +1,12 @@
+---
+
+- name: "Set user"
+  ansible.builtin.user: "{{ item | ansible.utils.remove_keys('authorized_keys') }}"
+  become: true
+  loop: "{{ users }}"
+
+- name: "Set authorized_keys"
+  ansible.posix.authorized_key: "{{ item.authorized_keys | combine({ 'user': item.name }) }}"
+  loop: "{{ users }}"
+  when: "item.authorized_keys is defined"
+

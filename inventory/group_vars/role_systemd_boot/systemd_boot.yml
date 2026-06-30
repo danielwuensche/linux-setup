@@ -1,0 +1,4 @@
+---
+
+systemd_boot_default_options: "{{ kernel_args | default([]) }}"
+

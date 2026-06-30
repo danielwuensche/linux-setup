@@ -1,0 +1,4 @@
+---
+
+flatpak_install__brave:
+  - com.brave.Browser

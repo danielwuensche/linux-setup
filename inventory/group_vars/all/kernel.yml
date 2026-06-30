@@ -1,0 +1,7 @@
+---
+
+kernel_args: "{{ query('community.general.merge_variables', 'kernel_args__', pattern_type='prefix') | flatten }}"
+
+kernel_args__memmap:
+  - "add_efi_memmap"
+

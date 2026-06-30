@@ -1,0 +1,14 @@
+---
+
+users__common:
+  - name: "root"
+    password: "$y$j9T$q507174n33gSfLh6bjdZK0$OnKCszuoNcn6etaz70LRFVSlcKtsKq17yX53iEOgw3D"
+  - name: "daniel"
+    password: "$y$j9T$cWlItx.MYURdcF1P97YEG/$vTiGi4FBKRcNXLH5euwqV52g0i2oDpAB5LKNZJSSG02"
+    append: true
+    groups: "wheel"
+    shell: "/usr/bin/bash"
+    authorized_keys:
+      key: |
+        ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAekOXwuNY/YWEqpKxvUEDDaDyP1dLB8uf+QoSOPihGR daniel
+      exclusive: true

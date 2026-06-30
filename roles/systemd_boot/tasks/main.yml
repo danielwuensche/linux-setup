@@ -1,0 +1,32 @@
+---
+
+- name: "check if bootctl is installed"
+  ansible.builtin.command:
+    cmd: "bootctl is-installed"
+  changed_when: false
+  become: true
+  register: reg_bootctl_isinstalled
+
+- name: "Run 'bootctl install'"
+  ansible.builtin.command:
+    cmd: "bootctl install"
+  when: "reg_bootctl_isinstalled.stdout != 'yes'"
+
+- name: "Set root partition information"
+  ansible.builtin.set_fact:
+    _mount_root_uuid: "{{ ansible_facts['mounts'] | selectattr('mount', 'eq', '/') | map(attribute='uuid') | first }}"
+    _mount_root_fstype: "{{ ansible_facts['mounts'] | selectattr('mount', 'eq', '/') | map(attribute='fstype') | first }}"
+
+- name: "Include loader entry tasks"
+  ansible.builtin.include_tasks: entry.yml
+  loop: "{{ systemd_boot_loader_entries }}"
+  loop_control:
+    loop_var: current_entry
+
+- name: "Create pacman hook"
+  ansible.builtin.template:
+    src: "pacman.hook.j2"
+    dest: "/etc/pacman.d/hooks/95-systemd-boot.hook"
+    mode: "0644"
+  become: true
+

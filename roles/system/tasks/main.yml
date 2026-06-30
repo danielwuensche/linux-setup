@@ -1,5 +1,42 @@
 ---
 
+- name: "Set hostname"
+  ansible.builtin.copy:
+    dest: "/etc/hostname"
+    content: |
+      {{ inventory_hostname }}
+  become: true
+
+- name: "Configure locale"
+  block:
+    - name: "Configure /etc/locale.gen"
+      ansible.builtin.blockinfile:
+        path: "/etc/locale.gen"
+        block: "{{ system_locale }}{{ ' ' ~ system_locale_charset if system_locale_charset is defined and (system_locale_charset | length > 0) else '' }}"
+        prepend_newline: true
+        append_newline: true
+      become: true
+      register: reg_system_locale
+
+    - name: "Run locale-gen"
+      ansible.builtin.command:
+        cmd: "locale-gen"
+      when: "reg_system_locale.changed | bool is true"
+
+    - name: "Configure /etc/locale.conf"
+      ansible.builtin.copy:
+        dest: "/etc/locale.conf"
+        content: |
+          LANG={{ system_locale }}
+      become: true
+
+- name: "Configure timezone"
+  ansible.builtin.file:
+    src: "/usr/share/zoneinfo/{{ system_timezone }}"
+    dest: "/etc/localtime"
+    state: "link"
+  become: true
+
 - name: "Get timedatectl configuration"
   ansible.builtin.command:
     cmd: "timedatectl show"
@@ -19,14 +56,3 @@
   become: true
   when: "(role_path ~ '/files/pacman.conf__' ~ inventory_hostname) is file"
 
-# - name: "Get pacman mirror countries"
-#   ansible.builtin.command:
-#     cmd: "pacman-mirrors -lc"
-#   register: reg_pacman_mirrors
-#   changed_when: false
-# 
-# - name: "Set pacman mirror countries"
-#   ansible.builtin.command:
-#     cmd: "pacman-mirrors -c '{{ system_pacman_mirror_countries | join(',') }}'"
-#   become: true
-#   when: "(reg_pacman_mirrors | list) == system_pacman_mirror_countries"

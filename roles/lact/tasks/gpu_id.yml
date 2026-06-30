@@ -1,0 +1,19 @@
+---
+
+- name: "Find GPU ID"
+  when: "current_gpu.id is not defined"
+  block:
+    - name: "Get GPU IDs"
+      ansible.builtin.command:
+        cmd: "lact cli list-gpus"
+      register: reg_lact_list_gpus
+      when: "reg_lact_list_gpus is not defined"
+      changed_when: false
+
+    - name: "Set current GPU's ID"
+      ansible.builtin.set_fact:
+        _gpu: "{{ current_gpu | combine({ 'id': (reg_lact_list_gpus.stdout_lines | select('search', current_gpu.name) | first | split(' '))[1] })  }}"
+
+    - name: "Add current gpu to list"
+      ansible.builtin.set_fact:
+        _gpus: "{{ _gpus | default([]) + [_gpu] }}"

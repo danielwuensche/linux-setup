@@ -1,0 +1,5 @@
+---
+
+intel_undervolt_conf_cpu: "-200"
+intel_undervolt_conf_cpu_cache: "-100"
+

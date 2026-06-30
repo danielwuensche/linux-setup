@@ -1,0 +1,5 @@
+---
+
+users: []
+  # ansible.builtin.user
+  # additionally 'authorized_keys' can be set, fed to ansible.posix.authorized_keys

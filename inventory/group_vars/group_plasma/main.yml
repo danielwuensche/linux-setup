@@ -1,0 +1,12 @@
+---
+
+packages_install__plasma:
+  - "plasma"
+  - "qt6-multimedia-ffmpeg"
+  - "pipewire-jack"
+  - "konsole"
+  - "dolphin"
+  - "ark"
+  - "gwenview"
+  - "spectacle"
+

@@ -1,0 +1,15 @@
+---
+
+systemd_boot_default_options: []
+
+systemd_boot_loader_entry_path: "/boot/loader/entries"
+systemd_boot_loader_entries:
+  - name: "arch"
+    title: "Arch Linux"
+    linux: "/vmlinuz-linux-lts"
+    initrd: "/initramfs-linux-lts.img"
+    options: "{{ systemd_boot_default_options }}"
+  - name: "arch-fallback"
+    title: "Arch Linux"
+    linux: "/vmlinuz-linux-lts"
+    initrd: "/initramfs-linux-lts-fallback.img"

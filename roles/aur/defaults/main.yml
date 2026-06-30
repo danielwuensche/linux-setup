@@ -1,0 +1,10 @@
+---
+
+aur_helper: "yay"
+aur_helper_deps:
+  - base-devel
+  - git
+
+aur_local_user: "aur_builder"
+
+aur_install: []

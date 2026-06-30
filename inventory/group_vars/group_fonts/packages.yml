@@ -1,0 +1,9 @@
+---
+
+packages_install__fonts:
+  - noto-fonts
+  - noto-fonts-cjk
+  - ttf-liberation
+  - ttf-dejavu
+  - ttc-iosevka
+

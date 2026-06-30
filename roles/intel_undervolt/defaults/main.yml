@@ -1,0 +1,6 @@
+---
+
+intel_undervolt_service_name: "intel-undervolt"
+intel_undervolt_service_enabled: true
+intel_undervolt_service_state: "started"
+

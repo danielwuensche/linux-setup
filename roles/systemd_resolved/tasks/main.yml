@@ -1,0 +1,8 @@
+---
+
+- name: "Put service into desired state"
+  ansible.builtin.service:
+    name: "{{ systemd_resolved_service_name }}"
+    enabled: "{{ systemd_resolved_service_enabled }}"
+    state: "{{ systemd_resolved_service_state }}"
+  become: true
