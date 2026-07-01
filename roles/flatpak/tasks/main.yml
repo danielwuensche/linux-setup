@@ -30,5 +30,5 @@
 
 - name: "Print updated flatpaks"
   ansible.builtin.debug:
-    var: reg_flatpak_update.stdout_lines | select('match', 'app/')
+    var: reg_flatpak_update.stdout_lines | select('match', '(runtime/|app/)')
   when: reg_flatpak_update.changed is true
